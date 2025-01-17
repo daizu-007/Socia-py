@@ -1,3 +1,1 @@
-# Socia - Your Personal AI Assitant
-|[日本語](./docs/ja/README.md)|  
-This is python version of Socia.
+C:/user_projects/_Projects/Socia/Socia-py/docs/en/README.md
