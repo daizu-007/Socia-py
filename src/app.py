@@ -1,6 +1,7 @@
 # エントリーポイント
 # このファイルを実行することで、アプリケーションが起動する
-from ui import chat
+from src.ui import chatui
 import flet
 
-flet.app(target=chat.main)
+def main():
+    flet.app(target=chatui.main)
