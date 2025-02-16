@@ -5,6 +5,7 @@ import os
 import sys
 sys.path.append(os.pardir)
 from ..logic import model
+from . import chatmessage
 
 def main(page: flet.Page):
     page.title = "Socia"
@@ -17,14 +18,22 @@ def main(page: flet.Page):
         if is_bot_generating_response:
             return
         question = input_field.value
-        chat_history.controls.append(flet.Text("You: " + question))
         input_field.value = ""
-        page.update()
+        add_user_message(question)
         llm.add_user_message(chat, question)
-        answer = llm.google_chat_completion(chat)
-        chat_history.controls.append(flet.Text("Bot: " + answer))
-        page.update()
+        answer = llm.groq_chat_completion(chat)
+        add_bot_message(answer)
         llm.add_bot_message(chat, answer)
+
+    # ユーザーメッセージを追加
+    def add_user_message(message):
+        chat_history.controls.append(chatmessage.ChatMessage(message, is_sender=True))
+        page.update()
+
+    # ボットメッセージを追加
+    def add_bot_message(message):
+        chat_history.controls.append(chatmessage.ChatMessage(message, is_sender=False))
+        page.update()
 
     # ページ要素の定義
     chat_history = flet.ListView(expand=True, auto_scroll=True, spacing=10)

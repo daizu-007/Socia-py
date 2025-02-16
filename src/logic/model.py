@@ -39,6 +39,6 @@ class Model:
     def groq_chat_completion(self, chat):
         response = self.groq.chat.completions.create(
             messages=chat,
-            model="deepseek-r1-distill-llama-70b",
+            model="qwen-2.5-32b",
         )
         return response.choices[0].message.content
