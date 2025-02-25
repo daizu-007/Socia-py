@@ -12,6 +12,14 @@ def main(page: flet.Page):
     is_bot_generating_response = False
     llm = model.Model()
     chat = []
+    
+    # ウィンドウサイズが変更された時のイベント処理
+    def page_resize(e):
+        # チャット履歴のUI要素を更新
+        page.update()
+    
+    # ページのリサイズイベントをリッスン
+    page.on_resize = page_resize
 
     # 送信ボタンがクリックされたときの処理
     def send_button_click(e):
@@ -21,7 +29,7 @@ def main(page: flet.Page):
         input_field.value = ""
         add_user_message(question)
         llm.add_user_message(chat, question)
-        answer = llm.groq_chat_completion(chat)
+        answer = llm.google_chat_completion(chat)
         add_bot_message(answer)
         llm.add_bot_message(chat, answer)
 
@@ -36,7 +44,11 @@ def main(page: flet.Page):
         page.update()
 
     # ページ要素の定義
-    chat_history = flet.ListView(expand=True, auto_scroll=True, spacing=10)
+    chat_history = flet.ListView(
+        auto_scroll=True, 
+        spacing=10,
+        expand=True,  # 利用可能な高さをすべて使用
+    )
     input_field = flet.TextField(
         autofocus=True,
         shift_enter=True,

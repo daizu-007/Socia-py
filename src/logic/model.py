@@ -25,7 +25,7 @@ class Model:
     def google_chat_completion(self, chat):
         response = self.google.chat.completions.create(
             messages=chat,
-            model="gemini-2.0-flash-exp",
+            model="gemini-2.0-flash",
         )
         return response.choices[0].message.content
 
@@ -37,6 +37,7 @@ class Model:
         return response.choices[0].message.content
 
     def groq_chat_completion(self, chat):
+        return "これはテストです。"
         response = self.groq.chat.completions.create(
             messages=chat,
             model="qwen-2.5-32b",
